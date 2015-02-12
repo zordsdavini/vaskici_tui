@@ -4,7 +4,7 @@ Game in Lithuanian to teach my son programing basics. It is similar to "Rock-pap
 ## Rules
 * there are three figures: leaf (similar to paper), well (a lot like rock), scissors
   
-    in Lithuanian:
+in Lithuanian:
     leaf == lapas (l)
     well == šulinys (s)
     scissors == žirklės (z)
