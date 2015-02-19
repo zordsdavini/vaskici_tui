@@ -16,75 +16,83 @@
 
 from random import randrange
 
-print("""
-VASKIČI ŽAIDIMAS
-================
+class vaskici:
+    ženklai = ['l', 's', 'z']
 
-Taisyklės:
-Įvesk ženklo raidę:
-    l - lapas
-    s - šulinys
-    z - žirklės
+    def run(self):
+        print("""
+        VASKIČI ŽAIDIMAS
+        ================
 
-Gero žaidimo :-)
-""")
+        Taisyklės:
+        Įvesk ženklo raidę:
+            l - lapas
+            s - šulinys
+            z - žirklės
 
-ėjimas = 0
-pergalės = 0
-pralaimėjimai = 0
-ženklai = ['l', 's', 'z']
+        Gero žaidimo :-)
+        """)
 
-while True:
-    ėjimas = ėjimas + 1
-    print("\n%i ----------------------" % ėjimas)
-    print("Pergalės %i\nPralaimėjimai %i" % (pergalės, pralaimėjimai))
-    spėjimas = input("Įvesk spėjimą (l, s, z): ")
-    if spėjimas not in ženklai:
-        print("Žaidimas baigtas\n")
-        break
+        ėjimas = 0
+        pergalės = 0
+        pralaimėjimai = 0
 
-    kompiuteris = ženklai[randrange(3)]
-    print("Kompiuteris rodo: %s" % kompiuteris)
+        while True:
+            ėjimas = ėjimas + 1
+            print("\n%i ----------------------" % ėjimas)
+            print("Pergalės %i\nPralaimėjimai %i" % (pergalės, pralaimėjimai))
+            spėjimas = input("Įvesk spėjimą (l, s, z): ")
+            if spėjimas not in self.ženklai:
+                print("Žaidimas baigtas\n")
+                break
 
-    if spėjimas == 'l':
-        if kompiuteris == 'l':
-            print("Lygiosios :-S")
+            # spėjimų logika sukelta po atskiru metodu
+            (kompiuteris, rezultatas) = self.ai(spėjimas)
+
+            print("Kompiuteris rodo: %s" % kompiuteris)
+
+            if rezultatas > 0:
+                print("Laimėjai :-)")
+                pergalės = pergalės + 1
+            elif rezultatas < 0:
+                print("Pralaimėjai :-(")
+                pralaimėjimai = pralaimėjimai + 1
+            else:
+                print("Lygiosios :-S")
+
             continue
 
-        if kompiuteris == 's':
-            print("Laimėjai :-)")
-            pergalės = pergalės + 1
-            continue
 
-        print("Pralaimėjai :-(")
-        pralaimėjimai = pralaimėjimai + 1
-        continue
+    def ai(self, spėjimas):
+        kompiuteris = self.ženklai[randrange(3)]
 
+        if spėjimas == 'l':
+            if kompiuteris == 'l':
+                return (kompiuteris, 0)
 
-    if spėjimas == 's':
-        if kompiuteris == 's':
-            print("Lygiosios :-S")
-            continue
+            if kompiuteris == 's':
+                return (kompiuteris, 1)
+
+            return (kompiuteris, -1)
+
+        if spėjimas == 's':
+            if kompiuteris == 's':
+                return (kompiuteris, 0)
+
+            if kompiuteris == 'z':
+                return (kompiuteris, 1)
+
+            return (kompiuteris, -1)
 
         if kompiuteris == 'z':
-            print("Laimėjai :-)")
-            pergalės = pergalės + 1
-            continue
+            return (kompiuteris, 0)
 
-        print("Pralaimėjai :-(")
-        pralaimėjimai = pralaimėjimai + 1
-        continue
+        if kompiuteris == 'l':
+            return (kompiuteris, 1)
+
+        return (kompiuteris, -1)
 
 
-    if kompiuteris == 'z':
-        print("Lygiosios :-S")
-        continue
 
-    if kompiuteris == 'l':
-        print("Laimėjai :-)")
-        pergalės = pergalės + 1
-        continue
-
-    print("Pralaimėjai :-(")
-    pralaimėjimai = pralaimėjimai + 1
-    continue
+app = vaskici()
+app.run()
